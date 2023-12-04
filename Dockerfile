@@ -8,6 +8,7 @@ WORKDIR /src
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+EXPOSE 5700
 # copy requirements file
 COPY ./requirements.txt /src/requirements.txt
 
@@ -20,5 +21,8 @@ RUN set -eux \
     && pip install -r /src/requirements.txt \
     && rm -rf /root/.cache/pip
 
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5700"]
+
 # copy project
 COPY . /src/
+
